@@ -8,7 +8,7 @@ import randomColor from "randomcolor";
 import EditorContext from "@/context/editor/EditorContext";
 // import { defaultCodeSnippets } from "@/constants";
 
-const serverWsUrl = "ws://connect-snippet.onrender.com";
+const serverWsUrl = "wss://connect-snippet.onrender.com";
 
 export default function CodeRoom({
   name,
