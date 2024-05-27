@@ -6,9 +6,10 @@ import { MonacoBinding } from "y-monaco";
 import { editor } from "monaco-editor";
 import randomColor from "randomcolor";
 import EditorContext from "@/context/editor/EditorContext";
-// import { defaultCodeSnippets } from "@/constants";
+import { useNavigate } from "react-router-dom";
 
-const serverWsUrl = "wss://connect-snippet.onrender.com";
+// const serverWsUrl = "wss://connect-snippet.onrender.com";
+const serverWsUrl = import.meta.env.VITE_WEBSOCKET_URL;
 
 export default function CodeRoom({
   name,
@@ -29,12 +30,16 @@ export default function CodeRoom({
     setCode,
   } = useContext(EditorContext);
   const [sharedState, setSharedState] = useState<any>(null);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   console.log("code from coderoom", code);
   // }, [code]);
 
   function handleEditorDidMount(editor: editor.IStandaloneCodeEditor) {
+    if (!name) {
+      navigate("/");
+    }
     editorRef.current = editor;
 
     // Initialize yjs
@@ -50,18 +55,17 @@ export default function CodeRoom({
 
     // const undoManager = new Y.UndoManager(type);
 
-    var person = name;
-
-    if (!person || person.trim() === "" || person.trim() === "\u200B") {
-      person = Math.floor(Math.random() * 10) + "User";
+    if (!name || name.trim() === "" || name.trim() === "\u200B") {
+      console.log("navigated from coderoom");
+      navigate("/");
     } else {
-      person = person.trim().slice(0, 10);
+      name = name.trim().slice(0, 10);
     }
 
     const awareness = provider.awareness;
 
     awareness.setLocalStateField("user", {
-      name: person,
+      name,
       color: randomUserColor,
     });
 
@@ -118,7 +122,25 @@ export default function CodeRoom({
                       border-left: 2px solid ${client.color};
                     }
 
-                    
+                    .${selectionHeadClass}::after {
+                      position: absolute;
+                      left:50%;
+                      transform:translateX(-50%);
+                      padding: 4px 4px;
+                      background: ${client.color};
+                      color: #fff;
+                      border: 0;
+                      border-radius: 6px;
+                      line-height: normal;
+                      white-space: nowrap;
+                      font-size: 14px;
+                      font-style: normal;
+                      font-weight: 600;
+                      pointer-events: none;
+                      user-select: none;
+                      z-index: 5000;
+                      content: ""; 
+                    }
 
                     .${selectionHeadClass}:hover::before {
                       content: '${client.name}';
@@ -131,6 +153,7 @@ export default function CodeRoom({
                       font-size: 12px;
                       border-top-right-radius: 4px;
                       border-bottom-right-radius: 4px;
+                      font-weight:600;
                     }
                 `;
         document.head.appendChild(selectionStyle);
@@ -192,11 +215,12 @@ export default function CodeRoom({
       if (provider) {
         provider.disconnect();
       }
+      // name = "";
     };
   }, []);
 
   return (
-    <div className="h-[100%]">
+    <div className="h-[100%] overflow-hidden rounded-xl shadow-2xl shadow-card">
       <Editor
         aria-labelledby="Code Editor"
         className="justify-center"
@@ -209,6 +233,10 @@ export default function CodeRoom({
           readOnly: false,
           matchBrackets: "always",
           inlineSuggest: { enabled: true },
+          padding: {
+            top: 20,
+            bottom: 20,
+          },
         }}
         value={code}
         onChange={(value) => setCode(value || "")}

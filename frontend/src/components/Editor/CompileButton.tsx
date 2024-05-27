@@ -24,7 +24,7 @@ function CompileButton() {
     const config = { headers: { "Content-type": "application/json" } };
 
     const res = await axios.post(
-      "https://connect-snippet.onrender.com/api/submission",
+      import.meta.env.VITE_SERVER_URL + "/api/submission",
       body,
       config
     );

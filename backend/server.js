@@ -17,9 +17,17 @@ app.use(json());
 const languagesMap = {
   cpp: ["cpp14", "3"],
   c: ["c", "3"],
-  java: ["java", "1"],
+  java: ["java", "5"],
   python: ["python3", "3"],
   typescript: ["typescript", "0"],
+  javascript: ["nodejs", "4"],
+  ruby: ["ruby", 5],
+  rust: ["rust", 5],
+  sql: ["sql", 5],
+  dart: ["dart", 5],
+  kotlin: ["kotlin", 4],
+  php: ["php", 5],
+  pert: ["pert", 5],
 };
 
 // Post request to create submission

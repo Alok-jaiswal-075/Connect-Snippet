@@ -4,7 +4,7 @@ import Input from "@/components/input";
 import Heading from "@/components/fonts/Heading";
 import TextMedium from "@/components/fonts/TextMedium";
 import TextNormal from "@/components/fonts/TextNormal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,12 @@ export default function HomePage() {
       },
     });
   };
+
+  useEffect(() => {
+    return () => {
+      setUserName("");
+    };
+  }, []);
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
