@@ -8,7 +8,6 @@ import randomColor from "randomcolor";
 import EditorContext from "@/context/editor/EditorContext";
 import { useNavigate } from "react-router-dom";
 
-// const serverWsUrl = "wss://connect-snippet.onrender.com";
 const serverWsUrl = import.meta.env.VITE_WEBSOCKET_URL;
 
 export default function CodeRoom({
