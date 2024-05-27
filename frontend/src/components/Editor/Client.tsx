@@ -5,7 +5,7 @@ const Client = memo(
   ({ username = "", color = "" }: { username: string; color: string }) => {
     return (
       <div className="space-x-1 text-stone-500">
-        <Avatar name={username} size={50} round="14px" color={color} />
+        <Avatar name={username} size="50" round="14px" color={color} />
         <span>{username}</span>
       </div>
     );

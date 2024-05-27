@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, useEffect, useDebugValue } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import * as Y from "yjs";
 import { WebsocketProvider } from "y-websocket";
@@ -6,9 +6,9 @@ import { MonacoBinding } from "y-monaco";
 import { editor } from "monaco-editor";
 import randomColor from "randomcolor";
 import EditorContext from "@/context/editor/EditorContext";
-import { defaultCodeSnippets } from "@/constants";
+// import { defaultCodeSnippets } from "@/constants";
 
-const serverWsUrl = "ws://localhost:5000";
+const serverWsUrl = "ws://connect-snippet.onrender.com";
 
 export default function CodeRoom({
   name,
@@ -48,7 +48,7 @@ export default function CodeRoom({
     );
     const type = doc.getText("monaco");
 
-    const undoManager = new Y.UndoManager(type);
+    // const undoManager = new Y.UndoManager(type);
 
     var person = name;
 
@@ -68,7 +68,7 @@ export default function CodeRoom({
     setProvider(provider);
 
     // Bind yjs doc to Manaco editor
-    const binding = new MonacoBinding(
+    new MonacoBinding(
       type,
       editorRef.current!.getModel()!,
       new Set([editorRef.current!]),

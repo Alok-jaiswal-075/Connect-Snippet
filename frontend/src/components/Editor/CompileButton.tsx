@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import EditorContext from "@/context/editor/EditorContext";
 import Button from "../button";
 import axios from "axios";
@@ -24,7 +24,7 @@ function CompileButton() {
     const config = { headers: { "Content-type": "application/json" } };
 
     const res = await axios.post(
-      "http://localhost:5000/api/submission",
+      "https://connect-snippet.onrender.com/api/submission",
       body,
       config
     );
