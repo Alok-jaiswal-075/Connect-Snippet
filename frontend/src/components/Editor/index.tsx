@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext, useEffect, useDebugValue } from "react";
 import { Editor } from "@monaco-editor/react";
 import * as Y from "yjs";
 import { WebsocketProvider } from "y-websocket";
@@ -29,6 +29,10 @@ export default function CodeRoom({
     setCode,
   } = useContext(EditorContext);
   const [sharedState, setSharedState] = useState<any>(null);
+
+  // useEffect(() => {
+  //   console.log("code from coderoom", code);
+  // }, [code]);
 
   function handleEditorDidMount(editor: editor.IStandaloneCodeEditor) {
     editorRef.current = editor;
@@ -102,7 +106,7 @@ export default function CodeRoom({
         const selectionStyle = document.createElement("style");
         selectionStyle.innerHTML = `
                     .${selectionClass} {
-                      opacity: 0.5;
+                      opacity: 1;
                       background-color: ${client.color};
                       margin-right: -1px;
                     }
@@ -114,26 +118,7 @@ export default function CodeRoom({
                       border-left: 2px solid ${client.color};
                     }
 
-                    .${selectionHeadClass}::after {
-                      position: absolute;
-                      top: -1.4em;
-                      left: -2px;
-                      padding: 2px 6px;
-                      background: ${client.color};
-                      color: #fff;
-                      border: 0;
-                      border-radius: 6px;
-                      border-bottom-left-radius: 0;
-                      line-height: normal;
-                      white-space: nowrap;
-                      font-size: 14px;
-                      font-style: normal;
-                      font-weight: 600;
-                      pointer-events: none;
-                      user-select: none;
-                      z-index: 1000;
-                      content: "${client.name}"; /* Updated to include client's name */
-                    }
+                    
 
                     .${selectionHeadClass}:hover::before {
                       content: '${client.name}';
@@ -226,7 +211,7 @@ export default function CodeRoom({
           inlineSuggest: { enabled: true },
         }}
         value={code}
-        onChange={() => setCode(code)}
+        onChange={(value) => setCode(value || "")}
       />
     </div>
   );

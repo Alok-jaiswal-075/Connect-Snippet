@@ -8,9 +8,9 @@ function CompileButton() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    console.log(code);
-  }, [code]);
+  // useEffect(() => {
+  //   console.log("The code is: ", code);
+  // }, [code]);
 
   // Submit code to server
   const handleSubmission = async () => {
