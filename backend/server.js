@@ -1,26 +1,84 @@
-const http = require("http");
-const { WebSocketServer } = require("ws");
+import cors from "cors";
+import express, { json } from "express";
+import fetch from "node-fetch";
+import dotenv from "dotenv";
+import { WebSocketServer } from "ws";
+import http from "http";
+dotenv.config();
 
-const url = require("url");
+// Create express app
+const app = express();
 
-const server = http.createServer();
+// Middlewares
+app.use(cors());
+app.use(json());
+
+// Get language code and version according to JDoodle API
+const languagesMap = {
+  cpp: ["cpp14", "3"],
+  c: ["c", "3"],
+  java: ["java", "1"],
+  python: ["python3", "3"],
+  typescript: ["typescript", "0"],
+};
+
+// Post request to create submission
+app.post("/api/submission", async (req, res) => {
+  // console.log(process.env.JDOODLE_CLIENT_ID);
+  try {
+    const [language, versionIndex] = languagesMap[req.body.language];
+
+    const inputParams = {
+      ...req.body,
+      language,
+      versionIndex,
+      clientId: process.env.JDOODLE_CLIENT_ID,
+      clientSecret: process.env.JDOODLE_CLIENT_SECRET,
+    };
+
+    console.log(inputParams);
+
+    const resp = await fetch("https://api.jdoodle.com/v1/execute", {
+      method: "POST",
+      body: JSON.stringify(inputParams),
+      headers: { "Content-type": "application/json" },
+    });
+
+    if (!resp.ok) {
+      const errorData = await resp.json();
+      console.error("Error from JDoodle API:", errorData);
+      return res.status(resp.status).json(errorData);
+    }
+
+    const data = await resp.json();
+
+    // console.log(data);
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Create WebSocket server
 const wsServer = new WebSocketServer({ server });
-const port = 5000;
 
 wsServer.on("connection", (connection, request) => {
-  const parsedUrl = url.parse(request.url);
-  console.log(parsedUrl);
+  console.log("New WebSocket connection:", request.url);
 
   connection.on("message", (message) => {
-    console.log(message.toString());
-    // console.log(Array.from(message.toJSON()));
+    // console.log("Received WebSocket message:", message.toString());
+    // Process WebSocket message here if needed
   });
 
-  // connection.on('close',()=>{
-  //   console.log('connection closed with')
-  // })
+  connection.on("close", () => {
+    console.log("WebSocket connection closed");
+  });
 });
 
-server.listen(port, () => {
-  console.log(`Websocket server is running on the port ${port}`);
-});
+// Start server
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`Server started at port ${port}`));

@@ -5,8 +5,26 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [provider, setProvider] = useState<any | null>(null);
+  const [users, setUsers] = useState<User[] | null>([]);
+  const [language, setLanguage] = useState<string>("javascript");
+  const [code, setCode] = useState<string>("");
+  const [stdIn, setStdIn] = useState<string>("");
+  const [output, setOutput] = useState<string>("");
 
-  const value: EditorContextValue = { provider, setProvider };
+  const value: EditorContextValue = {
+    provider,
+    setProvider,
+    users,
+    setUsers,
+    language,
+    setLanguage,
+    code,
+    setCode,
+    stdIn,
+    setStdIn,
+    output,
+    setOutput,
+  };
 
   return (
     <EditorContext.Provider value={value}> {children} </EditorContext.Provider>

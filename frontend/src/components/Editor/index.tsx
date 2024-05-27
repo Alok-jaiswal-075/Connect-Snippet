@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import * as Y from "yjs";
 import { WebsocketProvider } from "y-websocket";
 import { MonacoBinding } from "y-monaco";
 import { editor } from "monaco-editor";
 import randomColor from "randomcolor";
+import EditorContext from "@/context/editor/EditorContext";
+import { defaultCodeSnippets } from "@/constants";
 
 const serverWsUrl = "ws://localhost:5000";
 
@@ -17,7 +19,16 @@ export default function CodeRoom({
 }) {
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const randomUserColor = randomColor();
-  const [users, setUsers] = useState<any>([]);
+  const {
+    setUsers,
+    setProvider,
+    language,
+    setLanguage,
+    provider,
+    code,
+    setCode,
+  } = useContext(EditorContext);
+  const [sharedState, setSharedState] = useState<any>(null);
 
   function handleEditorDidMount(editor: editor.IStandaloneCodeEditor) {
     editorRef.current = editor;
@@ -49,6 +60,8 @@ export default function CodeRoom({
       name: person,
       color: randomUserColor,
     });
+
+    setProvider(provider);
 
     // Bind yjs doc to Manaco editor
     const binding = new MonacoBinding(
@@ -139,22 +152,82 @@ export default function CodeRoom({
       });
     });
 
+    const sharedStateNew = doc.getMap("sharedState");
+    setSharedState(sharedStateNew);
+
+    // Update language when shared state changes
+    sharedStateNew.observe((event: any) => {
+      if (event.changes.keys.has("language")) {
+        const newLanguage = sharedStateNew.get("language");
+        setLanguage(newLanguage);
+        //@ts-ignore
+        editorRef?.current?.updateOptions({ language: newLanguage });
+      }
+    });
+
+    // Initial set of the language
+    if (!sharedStateNew.has("language")) {
+      sharedStateNew.set("language", language);
+    }
+
+    // Set the initial content of the editor from Yjs
+    const initialContent = type.toString();
+    editorRef.current.setValue(initialContent);
+
+    // Update editor content when Yjs text changes
+    type.observe(() => {
+      if (editorRef.current) {
+        const newContent = type.toString();
+        if (editorRef.current.getValue() !== newContent) {
+          editorRef.current.setValue(newContent);
+        }
+      }
+    });
+
     provider.connect();
   }
 
+  useEffect(() => {
+    // setCode(defaultCodeSnippets[language]);
+    if (sharedState && editorRef.current) {
+      //@ts-ignore
+      editorRef.current.updateOptions({ language });
+      sharedState.set("language", language);
+    }
+  }, [language]);
+
+  useEffect(() => {
+    return () => {
+      if (editorRef.current) {
+        editorRef.current.dispose();
+      }
+      if (sharedState) {
+        sharedState.clear();
+      }
+      if (provider) {
+        provider.disconnect();
+      }
+    };
+  }, []);
+
   return (
-    <>
+    <div className="h-[100%]">
       <Editor
         aria-labelledby="Code Editor"
         className="justify-center"
-        language={"javascript"}
-        height="100vh"
+        language={language}
+        height="100%"
         theme="vs-dark"
         onMount={handleEditorDidMount}
         options={{
-          cursorBlinking: "smooth",
+          cursorBlinking: "expand",
+          readOnly: false,
+          matchBrackets: "always",
+          inlineSuggest: { enabled: true },
         }}
+        value={code}
+        onChange={() => setCode(code)}
       />
-    </>
+    </div>
   );
 }

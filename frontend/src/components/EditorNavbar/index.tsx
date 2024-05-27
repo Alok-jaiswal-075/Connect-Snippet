@@ -1,6 +1,7 @@
 import { IoSettings, IoCopy, IoPersonSharp } from "react-icons/io5";
 import logo from "/public/logo.png";
 import Button from "../button";
+import CompileButton from "../Editor/CompileButton";
 
 export interface Props {
   setIsOpen: () => void;
@@ -35,7 +36,7 @@ export default function EditorNavbar({ setIsOpen, setPanelType }: Props) {
           </div>
         </div>
         <div>
-          <Button onClick={() => {}}>Share</Button>
+          <CompileButton />
         </div>
       </div>
     </div>
