@@ -1,0 +1,21 @@
+{
+  "name": "crdt_server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-static": "^0.7.11",
+    "ws": "^8.17.0",
+    "y-websocket": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.2"
+  }
+}

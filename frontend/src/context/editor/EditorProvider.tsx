@@ -10,6 +10,7 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({
   const [code, setCode] = useState<string>("");
   const [stdIn, setStdIn] = useState<string>("");
   const [output, setOutput] = useState<string>("");
+  const [fontSize, setFontSize] = useState<number>(16);
 
   const value: EditorContextValue = {
     provider,
@@ -24,6 +25,8 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({
     setStdIn,
     output,
     setOutput,
+    fontSize,
+    setFontSize,
   };
 
   return (

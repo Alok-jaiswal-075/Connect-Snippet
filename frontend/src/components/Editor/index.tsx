@@ -27,6 +27,7 @@ export default function CodeRoom({
     provider,
     code,
     setCode,
+    fontSize,
   } = useContext(EditorContext);
   const [sharedState, setSharedState] = useState<any>(null);
   const navigate = useNavigate();
@@ -236,6 +237,7 @@ export default function CodeRoom({
             top: 20,
             bottom: 20,
           },
+          fontSize: fontSize,
         }}
         value={code}
         onChange={(value) => setCode(value || "")}

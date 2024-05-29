@@ -1,6 +1,8 @@
 import { IoSettings, IoCopy, IoPersonSharp } from "react-icons/io5";
 import logo from "/public/logo.png";
 import CompileButton from "../Editor/CompileButton";
+import Languages from "../dropdown/Languages";
+import FontSize from "../dropdown/FontSize";
 
 export interface Props {
   setIsOpen: () => void;
@@ -33,6 +35,10 @@ export default function EditorNavbar({ setIsOpen, setPanelType }: Props) {
           >
             <IoSettings size={20} color="#25213a" />
           </div>
+        </div>
+        <div className="flex gap-3">
+          <Languages />
+          <FontSize />
         </div>
         <div>
           <CompileButton />

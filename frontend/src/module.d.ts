@@ -11,6 +11,8 @@ declare interface EditorContextValue {
   setStdIn: (stdIn: string) => void;
   output: string;
   setOutput: (output: string) => void;
+  fontSize: number;
+  setFontSize: (size: number) => void;
 }
 
 declare interface User {

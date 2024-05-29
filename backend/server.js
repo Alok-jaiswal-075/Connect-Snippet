@@ -78,7 +78,7 @@ wsServer.on("connection", (connection, request) => {
   console.log("New WebSocket connection:", request.url);
 
   connection.on("message", (message) => {
-    // console.log("Received WebSocket message:", message.toString());
+    console.log("Received WebSocket message:", message.toString());
     // Process WebSocket message here if needed
   });
 
