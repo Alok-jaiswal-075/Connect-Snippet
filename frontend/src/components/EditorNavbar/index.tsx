@@ -1,4 +1,3 @@
-import { IoSettings, IoCopy, IoPersonSharp } from "react-icons/io5";
 import logo from "/public/logo.png";
 import CompileButton from "../Editor/CompileButton";
 import Languages from "../dropdown/Languages";
