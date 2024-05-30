@@ -4,13 +4,18 @@ import CodeRoom from "@/components/Editor";
 import { useLocation, useParams } from "react-router-dom";
 import Input from "@/components/Editor/Input";
 import Output from "@/components/Editor/Output";
+import { Navigate } from "react-router-dom";
 
 export default function () {
   const params = useParams<{ roomId: string }>();
   const { state } = useLocation();
   // const [panelType, setPanelType] = useState("none");
 
-  const username = state.username;
+  if (!state || !params || !params.roomId) {
+    return <Navigate to="/" replace />;
+  }
+
+  const username = state?.username;
 
   // const handlePanelType = (type: string) => {
   //   setPanelType(type);
