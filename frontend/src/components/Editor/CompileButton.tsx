@@ -37,7 +37,10 @@ function CompileButton() {
   };
 
   return (
-    <Button onClick={handleSubmission}>
+    <Button
+      onClick={isSubmitting ? () => {} : handleSubmission}
+      styles="w-[150px] h-[40px]"
+    >
       {isSubmitting ? "Compiling..." : "Run"}
     </Button>
   );

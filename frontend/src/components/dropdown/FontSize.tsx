@@ -24,7 +24,7 @@ function FontSize() {
       selected={fontSize}
       setSelected={setFontSize}
       items={fontSizes}
-      w={50}
+      w={175}
     />
   );
 }

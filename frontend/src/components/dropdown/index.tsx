@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCaretDown, IoCaretUp } from "react-icons/io5";
 
 export default function DropDown({ items, selected, setSelected, w }: any) {
   const [isActive, setIsActive] = useState(false);
   const [current, setCurrent] = useState(items[selected]);
+
+  useEffect(() => {
+    setCurrent(items[selected]);
+  }, [selected]);
+
   return (
     <div className="app font-semibold">
-      <div className={`dropdown mx-auto relative z-50 w-${w ? w : 40} `}>
+      <div
+        className={`dropdown mx-auto relative z-50  `}
+        style={{ width: `${w}px` }}
+      >
         <div
           onClick={() => {
             setIsActive(!isActive);
           }}
           className={`dropdown-btn cursor-pointer bg-background flex items-center justify-between gap-2 py-2 px-6 border-2  hover:border-button2 rounded-lg text-text duration-200  ${
             isActive ? "border-button2" : "border-transparent"
-          } `}
+          } w-full`}
         >
           {current as string}
           <span>{isActive ? <IoCaretUp /> : <IoCaretDown />}</span>

@@ -26,7 +26,7 @@ function Languages() {
       selected={language}
       setSelected={setLanguage}
       items={options}
-      w={50}
+      w={150}
     />
   );
 }
