@@ -5,7 +5,7 @@ import Avatar from "react-avatar";
 export default function Members() {
   const { users } = useContext(EditorContext);
 
-  console.log(users);
+  //console.log(users);
 
   return (
     <div className="flex gap-3">

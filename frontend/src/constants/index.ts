@@ -12,7 +12,7 @@ export const defaultCodeSnippets:
   | any = {
   javascript: `// JavaScript code snippet
 function greet() {
-  console.log("Hello, World!");
+  //console.log("Hello, World!");
 }
 greet();`,
   python: `# Python code snippet

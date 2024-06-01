@@ -32,7 +32,7 @@ const languagesMap = {
 
 // Post request to create submission
 app.post("/api/submission", async (req, res) => {
-  // console.log(process.env.JDOODLE_CLIENT_ID);
+  // //console.log(process.env.JDOODLE_CLIENT_ID);
   try {
     const [language, versionIndex] = languagesMap[req.body.language];
 
@@ -44,7 +44,7 @@ app.post("/api/submission", async (req, res) => {
       clientSecret: process.env.JDOODLE_CLIENT_SECRET,
     };
 
-    console.log(inputParams);
+    // //console.log(inputParams);
 
     const resp = await fetch("https://api.jdoodle.com/v1/execute", {
       method: "POST",
@@ -60,10 +60,10 @@ app.post("/api/submission", async (req, res) => {
 
     const data = await resp.json();
 
-    // console.log(data);
+    // //console.log(data);
     res.status(200).json(data);
   } catch (err) {
-    console.log(err.message);
+    // //console.log(err.message);
     res.status(400).json({ error: err.message });
   }
 });
@@ -75,15 +75,15 @@ const server = http.createServer(app);
 const wsServer = new WebSocketServer({ server });
 
 wsServer.on("connection", (connection, request) => {
-  console.log("New WebSocket connection:", request.url);
+  //console.log("New WebSocket connection:", request.url);
 
   connection.on("message", (message) => {
-    console.log("Received WebSocket message:", message.toString());
+    //console.log("Received WebSocket message:", message.toString());
     // Process WebSocket message here if needed
   });
 
   connection.on("close", () => {
-    console.log("WebSocket connection closed");
+    //console.log("WebSocket connection closed");
   });
 });
 

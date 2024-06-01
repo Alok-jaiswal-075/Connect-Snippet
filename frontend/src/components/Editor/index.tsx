@@ -33,7 +33,7 @@ export default function CodeRoom({
   const navigate = useNavigate();
 
   // useEffect(() => {
-  //   console.log("code from coderoom", code);
+  //   //console.log("code from coderoom", code);
   // }, [code]);
 
   function handleEditorDidMount(editor: editor.IStandaloneCodeEditor) {
@@ -56,7 +56,7 @@ export default function CodeRoom({
     // const undoManager = new Y.UndoManager(type);
 
     if (!name || name.trim() === "" || name.trim() === "\u200B") {
-      console.log("navigated from coderoom");
+      //console.log("navigated from coderoom");
       navigate("/");
     } else {
       name = name.trim().slice(0, 10);

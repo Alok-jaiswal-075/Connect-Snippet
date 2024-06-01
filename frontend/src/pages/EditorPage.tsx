@@ -22,7 +22,7 @@ export default function () {
   //   setPanelType(type);
   // };
 
-  console.log("roomid", params.roomId);
+  //console.log("roomid", params.roomId);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
