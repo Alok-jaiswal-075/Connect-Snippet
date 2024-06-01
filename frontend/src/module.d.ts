@@ -13,6 +13,8 @@ declare interface EditorContextValue {
   setOutput: (output: string) => void;
   fontSize: number;
   setFontSize: (size: number) => void;
+  isUserPanelOpen: boolean;
+  setIsUserPanelOpen: (open: boolean) => void;
 }
 
 declare interface User {

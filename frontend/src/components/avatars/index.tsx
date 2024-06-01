@@ -4,9 +4,10 @@ import EditorContext from "@/context/editor/EditorContext";
 import { useContext } from "react";
 
 export default function GroupAvatars() {
-  const { users } = useContext(EditorContext);
+  const { users,setIsUserPanelOpen,isUserPanelOpen } = useContext(EditorContext);
   return (
-    <AvatarGroup max={5}>
+    <div onClick={()=>setIsUserPanelOpen(!isUserPanelOpen)} className="cursor-pointer">
+      <AvatarGroup max={5}>
       {users.map((user: User, index: number) => {
         const username = user.name.toUpperCase();
 
@@ -24,5 +25,6 @@ export default function GroupAvatars() {
         );
       })}
     </AvatarGroup>
+    </div>
   );
 }

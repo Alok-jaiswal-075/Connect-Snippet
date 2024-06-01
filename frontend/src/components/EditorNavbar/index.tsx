@@ -32,8 +32,10 @@ export default function EditorNavbar() {
         </div>
         <div className="hidden md:flex gap-3 items-center">
           <GroupAvatars />
-          <ShareRoom />
         </div>
+          <div className='hidden md:flex'>
+          <ShareRoom />
+          </div>
         <div className="">
           <CompileButton />
         </div>

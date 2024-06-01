@@ -11,6 +11,7 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({
   const [stdIn, setStdIn] = useState<string>("");
   const [output, setOutput] = useState<string>("");
   const [fontSize, setFontSize] = useState<number>(16);
+  const [isUserPanelOpen,setIsUserPanelOpen] = useState<boolean>(false);
 
   const value: EditorContextValue = {
     provider,
@@ -27,6 +28,8 @@ export const EditorProvider: React.FC<{ children: React.ReactNode }> = ({
     setOutput,
     fontSize,
     setFontSize,
+    isUserPanelOpen,
+    setIsUserPanelOpen
   };
 
   return (

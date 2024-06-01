@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import EditorNavbar from "@/components/EditorNavbar";
-// import SlidePanel from "@/components/SidePanel";
+import SlidePanel from "@/components/SidePanel";
 import CodeRoom from "@/components/Editor";
 import { useLocation, useParams } from "react-router-dom";
 import Input from "@/components/Editor/Input";
@@ -41,11 +41,8 @@ export default function () {
           <Input />
           <Output />
         </div>
-        {/* <SlidePanel
-          isOpen={isOpen}
-          setIsOpen={handleSetIsOpen}
-          type={panelType}
-        /> */}
+        <SlidePanel
+        />
       </div>
     </div>
   );
