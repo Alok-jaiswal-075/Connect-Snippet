@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import EditorNavbar from "@/components/EditorNavbar";
 // import SlidePanel from "@/components/SidePanel";
 import CodeRoom from "@/components/Editor";
@@ -29,14 +30,14 @@ export default function () {
       // setIsOpen={handleSetIsOpen}
       // setPanelType={handlePanelType}
       />
-      <div className="grid grid-cols-3 gap-4 relative h-full p-8">
-        <div className="h-full col-span-2 ">
+      <div className="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 gap-4 relative h-full p-4 md:p-8">
+        <div className="h-full row-span-2 md:col-span-2">
           <CodeRoom
             name={username as string}
             roomId={params.roomId as string}
           />
         </div>
-        <div className="grid grid-rows-2 grid-flow-col gap-4">
+        <div className="grid row-span-1 grid-cols-2 overflow-hidden gap-4 md:grid-cols-1 md:col-span-1">
           <Input />
           <Output />
         </div>

@@ -6,5 +6,5 @@ export interface props {
 }
 
 export default function SubHeading({ children, styles = "" }: props) {
-  return <h1 className={`text-xl font-semibold ${styles}`}>{children}</h1>;
+  return <h1 className={`text-lg md:text-xl font-semibold ${styles}`}>{children}</h1>;
 }

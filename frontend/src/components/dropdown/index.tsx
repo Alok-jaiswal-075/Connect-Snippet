@@ -12,7 +12,7 @@ export default function DropDown({ items, selected, setSelected, w }: any) {
   return (
     <div className="app font-semibold">
       <div
-        className={`dropdown mx-auto relative z-50  `}
+        className={`dropdown mx-auto relative   `}
         style={{ width: `${w}px` }}
       >
         <div
@@ -29,7 +29,7 @@ export default function DropDown({ items, selected, setSelected, w }: any) {
         <div
           className={`dropdown-content absolute left-0 w-full shadow-md bg-background rounded-lg text-text ${
             isActive ? "block" : "hidden"
-          }`}
+          } z-50`}
         >
           {Object.entries(items).map(([value, text]) => (
             <div

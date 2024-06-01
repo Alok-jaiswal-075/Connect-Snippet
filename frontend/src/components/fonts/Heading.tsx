@@ -6,5 +6,5 @@ export interface props {
 }
 
 export default function Heading({ children, styles }: props) {
-  return <h1 className={`text-3xl font-semibold ${styles}`}>{children}</h1>;
+  return <h1 className={`text-2xl md:text-3xl font-semibold ${styles}`}>{children}</h1>;
 }

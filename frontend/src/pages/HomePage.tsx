@@ -46,10 +46,10 @@ export default function HomePage() {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center">
+    <div className="w-screen h-screen flex flex-col items-center justify-center px-6">
       <Card styles="items-start">
-        <div className="flex gap-6 items-center justify-center">
-          <div className="w-14">
+        <div className="flex gap-4 md:gap-6 items-center justify-center">
+          <div className="w-10 md:w-14">
             <img src="./logo.png" alt="logo" />
           </div>
           <div className="flex flex-col gap-1">
@@ -83,8 +83,8 @@ export default function HomePage() {
         <Button styles="self-end " onClick={joinRoom}>
           Join
         </Button>
-        <div className="flex">
-          <TextNormal>
+        <div className="flex flex-wrap items-center justify-start">
+          <TextNormal styles="text-sm text-wrap">
             If you don't have an invite then create &nbsp;
           </TextNormal>
           <h4

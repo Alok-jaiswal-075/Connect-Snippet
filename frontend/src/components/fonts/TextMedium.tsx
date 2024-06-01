@@ -6,5 +6,5 @@ export interface props {
 }
 
 export default function TextMedium({ children, styles = "" }: props) {
-  return <h1 className={`text-md ${styles}`}>{children}</h1>;
+  return <h1 className={`md:text-md ${styles}`}>{children}</h1>;
 }
